@@ -21,6 +21,9 @@ export class CreatePostDto {
   content: string;
 
   @IsOptional() // Vai ser requerido no Next.js
-  @IsUrl({ require_tld: false }) // Top level domain proíbe localhost e IP
+  @IsUrl(
+    { require_tld: false },
+    { message: 'URL da imagem precisa ser uma URL válida' },
+  )
   coverImageUrl?: string;
 }
