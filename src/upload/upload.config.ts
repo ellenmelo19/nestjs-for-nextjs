@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { memoryStorage } from 'multer';
@@ -6,9 +5,15 @@ import { BadRequestException } from '@nestjs/common';
 
 export const storage = memoryStorage();
 
+export type MulterFileLike = {
+  mimetype: string;
+  size: number;
+  buffer: Buffer;
+};
+
 export const fileFilter = (
   req: any,
-  file: Express.Multer.File,
+  file: MulterFileLike,
   cb: (error: Error | null, acceptFile: boolean) => void,
 ) => {
   if (!file.mimetype.startsWith('image/')) {

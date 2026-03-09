@@ -5,6 +5,7 @@ import { UserModule } from 'src/user/user.module';
 import { CommonModule } from 'src/common/pipes/common.module';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
+import type { StringValue } from 'ms';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { JwtStrategy } from './jwt.strategy';
     JwtModule.registerAsync({
       useFactory: () => {
         const secret = process.env.JWT_SECRET;
+        const expiresIn = (process.env.JWT_EXPIRATION ?? '1d') as StringValue;
 
         if (!secret) {
           throw new InternalServerErrorException(
@@ -22,7 +24,7 @@ import { JwtStrategy } from './jwt.strategy';
 
         return {
           secret,
-          signOptions: { expiresIn: process.env.JWT_EXPIRATION || '1d' },
+          signOptions: { expiresIn },
         };
       },
     }),

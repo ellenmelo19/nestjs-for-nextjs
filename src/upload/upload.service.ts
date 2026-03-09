@@ -1,14 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { fileTypeFromBuffer } from 'file-type';
 import { writeFileSync, existsSync, mkdirSync } from 'fs';
 import { resolve } from 'path';
 import { generateRandomSuffix } from 'src/common/utils/generate-random-suffix';
+import { type MulterFileLike } from './upload.config';
 
 @Injectable()
 export class UploadService {
-  async handleUpload(file: Express.Multer.File) {
+  async handleUpload(file: MulterFileLike) {
     if (!file) {
       throw new BadRequestException('Nenhum arquivo enviado.');
     }

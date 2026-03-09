@@ -31,7 +31,7 @@ POST {{baseUrl}}/user
 Content-Type: application/json
 
 {
-  "name": "{{userNameForTesting}}",
+  "name": "{{userNameForTesting}} Ellen",
   "email": "{{userEmailForTesting}}",
   "password": "{{userPasswordForTesting}}"
 }
